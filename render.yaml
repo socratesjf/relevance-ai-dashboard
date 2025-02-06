@@ -4,12 +4,15 @@ services:
     runtime: python
     buildCommand: |
       python -m pip install --upgrade pip
-      python -m pip install -r requirements.txt
-    startCommand: python -m uvicorn main:app --host 0.0.0.0 --port $PORT
-    pythonVersion: 3.9.18
+      pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    pythonVersion: 3.9.18  # Explicitly use Python 3.9
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.18
       - key: PYTHONPATH
         value: .
-    env: python
+      - key: RELEVANCE_AI_PROJECT
+        sync: false  # This tells Render this is a secret
+      - key: RELEVANCE_AI_API_KEY
+        sync: false  # This tells Render this is a secret
